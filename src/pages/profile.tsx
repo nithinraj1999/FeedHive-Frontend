@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../state/store";
-import { FaUser, FaEnvelope, FaPhone, FaBirthdayCake, FaUserShield, FaList, FaEdit, FaSave } from "react-icons/fa";
+import { FaUser, FaEnvelope, FaPhone, FaBirthdayCake, FaList, FaEdit, FaSave } from "react-icons/fa";
 import { setUser } from "../state/slices/authSlice";
 import { editProfile } from "../api/userApi";
 

@@ -22,6 +22,8 @@ export const createArticles = async(data:any)=>{
 
 
 export const getAllArticles = async (data:any)=>{
+    console.log(data);
+    
     const response = await userInstance.get("/get-all-articles")
     return response.data
 }   

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { FaThumbsUp, FaThumbsDown } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { RootState } from "../state/store";
-import { getAllArticles } from "../api/userApi";
 import { useNavigate } from "react-router-dom";
 import { getMyArticles } from "../api/userApi";
 

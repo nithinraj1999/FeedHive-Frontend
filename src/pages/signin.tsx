@@ -1,7 +1,6 @@
 import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../state/store";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { signinUser } from "../api/auth";
 import { setUser } from "../state/slices/authSlice";
