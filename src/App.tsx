@@ -6,6 +6,7 @@ import ArticleCreationPage from "./pages/ArticleCreationPage";
 import ArticleFeed from "./pages/ArticleFeed";
 import ViewArticlePage from "./pages/ViewArticlePage";
 import MyArticles from "./pages/MyArticles";
+import CategorySelection from "./pages/CategorySelection";
 function App() {
   return (
     <>
@@ -17,6 +18,8 @@ function App() {
       <Route path="/feed" element={<ArticleFeed />} />
       <Route path="/view-article" element={<ViewArticlePage />} />
       <Route path="/my-articles" element={<MyArticles />} />
+      <Route path="/select-category" element={<CategorySelection/>} />
+
 
     </Routes>
     </>

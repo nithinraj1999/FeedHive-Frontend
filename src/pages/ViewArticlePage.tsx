@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import { FaThumbsUp, FaThumbsDown, FaExclamationTriangle, FaEdit } from "react-icons/fa";
 import { viewArticles, updateArticle, getAllCategories } from "../api/userApi";
 import { useLocation } from "react-router-dom";
-
+import { useSelector } from "react-redux";
+import { RootState } from "../state/store";
 interface Article {
   _id: string;
   articleName: string;
   description: string;
+  userId:string
   image: string;
   tags: string[];
   likes: number;
@@ -32,6 +34,7 @@ const ViewArticlePage = () => {
 
   const useQuery = () => new URLSearchParams(useLocation().search);
   const query = useQuery();
+  const user = useSelector((state: RootState) => state.auth.user);
 
   useEffect(() => {
     async function fetchArticleDetails() {
@@ -130,9 +133,12 @@ const ViewArticlePage = () => {
             <h1 className="text-2xl font-bold text-gray-800">{article?.articleName}</h1>
             <p className="text-gray-500 text-sm">Published on {article?.createdAt}</p>
           </div>
+          {article?.userId==user?._id &&
+          
           <button className="text-blue-500 hover:underline flex items-center" onClick={handleEditClick}>
             <FaEdit className="mr-1" /> Edit
           </button>
+}
         </div>
 
         <p className="mt-4 text-gray-700">{article?.description}</p>
@@ -145,7 +151,7 @@ const ViewArticlePage = () => {
           ))}
         </div>
 
-        <div className="flex items-center justify-between mt-6">
+        {/* <div className="flex items-center justify-between mt-6">
           <div className="flex items-center space-x-4 text-gray-600">
             <button className="flex items-center space-x-1 hover:text-blue-500">
               <FaThumbsUp />
@@ -160,7 +166,7 @@ const ViewArticlePage = () => {
             <FaExclamationTriangle className="text-yellow-500" />
             <span>{article?.blockCount} Reports</span>
           </div>
-        </div>
+        </div> */}
       </div>
 
       {isEditing && (

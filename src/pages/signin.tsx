@@ -4,12 +4,15 @@ import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { signinUser } from "../api/auth";
 import { setUser } from "../state/slices/authSlice";
+import { useNavigate } from "react-router-dom";
 interface SignInFormInputs {
   email: string;
   password: string;
 }
 
 const SignIn: React.FC = () => {
+
+  const navigate = useNavigate()
   const {
     register,
     handleSubmit,
@@ -20,8 +23,11 @@ const SignIn: React.FC = () => {
     console.log("Sign In Data:", data);
 
     const response = await signinUser(data)
-    console.log("res",response);
-    dispatch(setUser(response.userData))
+    if(response.success){
+      dispatch(setUser(response.userData))
+      navigate('/feed')
+    }
+
   };
 
   

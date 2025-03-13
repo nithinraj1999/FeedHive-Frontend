@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { getAllCategories, createArticles } from "../api/userApi"; // Import API function
 import { useSelector } from "react-redux";
 import { RootState } from "../state/store";
-
+import NavBar from "../components/NavBar";
+import { useNavigate } from "react-router-dom";
 interface Category {
   _id: string;
   categoryName: string;
@@ -18,7 +19,7 @@ const ArticleCreationPage: React.FC = () => {
   const [tagInput, setTagInput] = useState("");
 
   const user = useSelector((state: RootState) => state.auth.user);
-
+  const navigate = useNavigate()
   useEffect(() => {
     async function fetchCategories() {
       try {
@@ -79,8 +80,7 @@ const ArticleCreationPage: React.FC = () => {
     try {
       const response = await createArticles(formData); // API call
       console.log("Article Created:", response);
-      alert("Article created successfully!");
-      // Reset Form after submission
+      navigate("/feed")
       setArticleName("");
       setDescription("");
       setTags([]);
@@ -93,6 +93,10 @@ const ArticleCreationPage: React.FC = () => {
   };
 
   return (
+
+    <>
+    <NavBar/>
+   
     <div className="max-w-lg mx-auto p-6 bg-white shadow-md rounded-md">
       <h2 className="text-2xl font-semibold mb-4">Create Article</h2>
 
@@ -185,6 +189,7 @@ const ArticleCreationPage: React.FC = () => {
         Submit
       </button>
     </div>
+    </>
   );
 };
 

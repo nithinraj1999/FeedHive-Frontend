@@ -2,6 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { registerUser } from "../api/auth";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 type SignupFormData = {
   firstName: string;
   lastName: string;
@@ -20,8 +21,15 @@ const Signup: React.FC = () => {
     formState: { errors },
   } = useForm<SignupFormData>();
 
+
+  const navigate = useNavigate()
   const onSubmit = async(data: SignupFormData) => {
     const response = await registerUser(data)
+    if(response.success){
+      console.log(response.newUserId);
+      
+      navigate(`/select-category?userId=${response.newUserId}`)
+    }
     console.log(response);
   };
 

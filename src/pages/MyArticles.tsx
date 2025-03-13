@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../state/store";
 import { useNavigate } from "react-router-dom";
 import { getMyArticles } from "../api/userApi";
-
+import NavBar from "../components/NavBar";
 // Define Article type
 interface Article {
   _id: string;
@@ -45,6 +45,9 @@ const MyArticles: React.FC = () => {
   }, [user?._id]); 
 
   return (
+
+    <>
+  <NavBar/>
     <div className="max-w-6xl mx-auto p-4">
       <h1 className="text-2xl font-bold mb-6 text-center">My Articles</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
@@ -94,6 +97,8 @@ const MyArticles: React.FC = () => {
         ))}
       </div>
     </div>
+
+    </>
   );
 };
 

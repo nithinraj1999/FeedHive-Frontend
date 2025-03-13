@@ -4,7 +4,7 @@ import { RootState } from "../state/store";
 import { FaUser, FaEnvelope, FaPhone, FaBirthdayCake, FaList, FaEdit, FaSave } from "react-icons/fa";
 import { setUser } from "../state/slices/authSlice";
 import { editProfile } from "../api/userApi";
-
+import NavBar from "../components/NavBar";
 const Profile = () => {
   const user = useSelector((state: RootState) => state.auth.user);
   const dispatch = useDispatch();
@@ -35,6 +35,9 @@ const Profile = () => {
   };
 
   return (
+    <>
+    
+    <NavBar/>
     <div className="max-w-lg mx-auto mt-10 p-8 bg-white rounded-2xl shadow-lg border border-gray-200">
       <h2 className="text-3xl font-semibold text-center mb-6 text-gray-800">My Profile</h2>
 
@@ -86,7 +89,7 @@ const Profile = () => {
         />
 
 
-        <div className="p-4 bg-gray-100 rounded-lg">
+        {/* <div className="p-4 bg-gray-100 rounded-lg">
           <div className="flex items-center gap-2 text-gray-700 font-medium mb-2">
             <FaList className="text-blue-500" />
             <span>Preferences</span>
@@ -100,9 +103,11 @@ const Profile = () => {
           ) : (
             <p className="text-gray-500">No preferences set</p>
           )}
-        </div>
+        </div> */}
       </div>
     </div>
+    </>
+
   );
 };
 
