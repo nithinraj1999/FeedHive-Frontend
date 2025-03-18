@@ -4,6 +4,7 @@ import { viewArticles, updateArticle, getAllCategories } from "../api/userApi";
 import { useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "../state/store";
+
 interface Article {
   _id: string;
   articleName: string;
@@ -151,7 +152,7 @@ const ViewArticlePage = () => {
           ))}
         </div>
 
-        {/* <div className="flex items-center justify-between mt-6">
+        <div className="flex items-center justify-between mt-6">
           <div className="flex items-center space-x-4 text-gray-600">
             <button className="flex items-center space-x-1 hover:text-blue-500">
               <FaThumbsUp />
@@ -166,7 +167,7 @@ const ViewArticlePage = () => {
             <FaExclamationTriangle className="text-yellow-500" />
             <span>{article?.blockCount} Reports</span>
           </div>
-        </div> */}
+        </div>
       </div>
 
       {isEditing && (

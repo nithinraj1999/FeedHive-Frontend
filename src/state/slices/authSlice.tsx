@@ -1,5 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+
+interface Category{
+  _id:string,
+  categoryName:string
+}
 interface User {
   _id:string,
   firstName: string;
@@ -7,7 +12,7 @@ interface User {
   email: string;
   phone: string;
   dob: string; 
-  preferences:string[];
+  preferences:Category[];
   role: "user" | "admin";
 }
 

@@ -1,17 +1,32 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { registerUser } from "../api/auth";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-type SignupFormData = {
-  firstName: string;
-  lastName: string;
-  email: string;
-  phone: string;
-  dateOfBirth: string;
-  password: string;
-  confirmPassword: string;
-};
+import { Link, useNavigate } from "react-router-dom";
+
+// Define the validation schema using zod
+const signupSchema = z.object({
+  firstName: z.string()
+  .min(1, "First name is required")
+  .regex(/^[A-Za-z]+$/, "Only letters are allowed"),
+
+  lastName: z.string().min(1, "Last name is required")
+  .regex(/^[A-Za-z]+$/, "Only letters are allowed"),
+  email: z.string().email("Invalid email format"),
+  phone: z.string().min(10, "Phone number must be at least 10 digits")
+  .regex(/^\d+$/, "Only numbers are allowed"),
+
+  dateOfBirth: z.string().min(1, "Date of birth is required"),
+  password: z.string().min(6, "Password must be at least 6 characters"),
+  confirmPassword: z.string(),
+}).refine((data) => data.password === data.confirmPassword, {
+  message: "Passwords do not match",
+  path: ["confirmPassword"],
+});
+
+// Define the type from zod schema
+type SignupFormData = z.infer<typeof signupSchema>;
 
 const Signup: React.FC = () => {
   const {
@@ -19,16 +34,17 @@ const Signup: React.FC = () => {
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<SignupFormData>();
+  } = useForm<SignupFormData>({
+    resolver: zodResolver(signupSchema),
+  });
 
+  const navigate = useNavigate();
 
-  const navigate = useNavigate()
-  const onSubmit = async(data: SignupFormData) => {
-    const response = await registerUser(data)
-    if(response.success){
+  const onSubmit = async (data: SignupFormData) => {
+    const response = await registerUser(data);
+    if (response.success) {
       console.log(response.newUserId);
-      
-      navigate(`/select-category?userId=${response.newUserId}`)
+      navigate(`/select-category?userId=${response.newUserId}`);
     }
     console.log(response);
   };
@@ -37,105 +53,64 @@ const Signup: React.FC = () => {
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="bg-white p-6 rounded-lg shadow-md "
+        className="bg-white p-6 rounded-lg shadow-md"
       >
         <h2 className="text-2xl font-bold text-center mb-4">Sign Up</h2>
 
-        {/* First Name & Last Name in same row */}
         <div className="flex gap-4">
           <div className="w-1/2">
             <label className="block text-sm font-medium">First Name</label>
-            <input
-              {...register("firstName", { required: "First name is required" })}
-              className="w-full p-2 border rounded mt-1"
-            />
-            {errors.firstName && (
-              <p className="text-red-500 text-xs mt-1">{errors.firstName.message}</p>
-            )}
+            <input {...register("firstName")} className="w-full p-2 border rounded mt-1" />
+            {errors.firstName && <p className="text-red-500 text-xs mt-1">{errors.firstName.message}</p>}
           </div>
 
           <div className="w-1/2">
             <label className="block text-sm font-medium">Last Name</label>
-            <input
-              {...register("lastName", { required: "Last name is required" })}
-              className="w-full p-2 border rounded mt-1"
-            />
-            {errors.lastName && (
-              <p className="text-red-500 text-xs mt-1">{errors.lastName.message}</p>
-            )}
+            <input {...register("lastName")} className="w-full p-2 border rounded mt-1" />
+            {errors.lastName && <p className="text-red-500 text-xs mt-1">{errors.lastName.message}</p>}
           </div>
         </div>
 
         <div className="mb-4 mt-4">
           <label className="block text-sm font-medium">Email</label>
-          <input
-            type="email"
-            {...register("email", { required: "Email is required" })}
-            className="w-full p-2 border rounded mt-1"
-          />
-          {errors.email && (
-            <p className="text-red-500 text-xs mt-1">{errors.email.message}</p>
-          )}
+          <input type="email" {...register("email")} className="w-full p-2 border rounded mt-1" />
+          {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email.message}</p>}
         </div>
 
         <div className="mb-4">
           <label className="block text-sm font-medium">Phone</label>
-          <input
-            type="tel"
-            {...register("phone", { required: "Phone number is required" })}
-            className="w-full p-2 border rounded mt-1"
-          />
-          {errors.phone && (
-            <p className="text-red-500 text-xs mt-1">{errors.phone.message}</p>
-          )}
+          <input type="tel" {...register("phone")} className="w-full p-2 border rounded mt-1" />
+          {errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone.message}</p>}
         </div>
 
         <div className="mb-4">
           <label className="block text-sm font-medium">Date of Birth</label>
-          <input
-            type="date"
-            {...register("dateOfBirth", { required: "Date of birth is required" })}
-            className="w-full p-2 border rounded mt-1"
-          />
-          {errors.dateOfBirth && (
-            <p className="text-red-500 text-xs mt-1">{errors.dateOfBirth.message}</p>
-          )}
+          <input type="date" {...register("dateOfBirth")} className="w-full p-2 border rounded mt-1" />
+          {errors.dateOfBirth && <p className="text-red-500 text-xs mt-1">{errors.dateOfBirth.message}</p>}
         </div>
 
         <div className="mb-4">
           <label className="block text-sm font-medium">Password</label>
-          <input
-            type="password"
-            {...register("password", { required: "Password is required" })}
-            className="w-full p-2 border rounded mt-1"
-          />
-          {errors.password && (
-            <p className="text-red-500 text-xs mt-1">{errors.password.message}</p>
-          )}
+          <input type="password" {...register("password")} className="w-full p-2 border rounded mt-1" />
+          {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password.message}</p>}
         </div>
 
         <div className="mb-4">
           <label className="block text-sm font-medium">Confirm Password</label>
-          <input
-            type="password"
-            {...register("confirmPassword", {
-              validate: (value) => value === watch("password") || "Passwords do not match",
-            })}
-            className="w-full p-2 border rounded mt-1"
-          />
-          {errors.confirmPassword && (
-            <p className="text-red-500 text-xs mt-1">{errors.confirmPassword.message}</p>
-          )}
+          <input type="password" {...register("confirmPassword")} className="w-full p-2 border rounded mt-1" />
+          {errors.confirmPassword && <p className="text-red-500 text-xs mt-1">{errors.confirmPassword.message}</p>}
         </div>
 
-        <button
-          type="submit"
-          className="w-full bg-black text-white py-2 rounded hover:bg-blue-600"
-        >
+        <button type="submit" className="w-full bg-black text-white py-2 rounded hover:bg-blue-600">
           Sign Up
         </button>
-        <p>Have an account?{" "}<Link to="/" className="text-blue-500 hover:underline">sign in </Link></p>
-        
+
+        <p className="mt-4">
+          Have an account?{" "}
+          <Link to="/" className="text-blue-500 hover:underline">
+            Sign in
+          </Link>
+        </p>
       </form>
     </div>
   );
