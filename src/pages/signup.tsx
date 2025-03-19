@@ -25,7 +25,6 @@ const signupSchema = z.object({
   path: ["confirmPassword"],
 });
 
-// Define the type from zod schema
 type SignupFormData = z.infer<typeof signupSchema>;
 
 const Signup: React.FC = () => {

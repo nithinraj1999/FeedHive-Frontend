@@ -7,20 +7,20 @@ import ArticleFeed from "./pages/ArticleFeed";
 import ViewArticlePage from "./pages/ViewArticlePage";
 import MyArticles from "./pages/MyArticles";
 import CategorySelection from "./pages/CategorySelection";
+import PrivateRoute from "./components/Prrotected";
+
 function App() {
   return (
     <>
      <Routes>
       <Route path="/" element={<SignIn/>} />
       <Route path="/signup" element={<Signup />} />
-      <Route path="/my-profile" element={<Profile />} />
-      <Route path="/create-article" element={<ArticleCreationPage />} />
-      <Route path="/feed" element={<ArticleFeed />} />
-      <Route path="/view-article" element={<ViewArticlePage />} />
-      <Route path="/my-articles" element={<MyArticles />} />
-      <Route path="/select-category" element={<CategorySelection/>} />
-
-
+      <Route path="/my-profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
+      <Route path="/create-article" element={<PrivateRoute><ArticleCreationPage /></PrivateRoute>} />
+      <Route path="/feed" element={    <PrivateRoute><ArticleFeed /></PrivateRoute>} />
+      <Route path="/view-article" element={ <PrivateRoute><ViewArticlePage /></PrivateRoute>} />
+      <Route path="/my-articles" element={<PrivateRoute><MyArticles /></PrivateRoute>} />
+      <Route path="/select-category" element={<PrivateRoute><CategorySelection/></PrivateRoute>} />
     </Routes>
     </>
   );
