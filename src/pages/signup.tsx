@@ -4,8 +4,10 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { registerUser } from "../api/auth";
 import { Link, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RootState } from "../state/store";
+import { useEffect } from "react";
 
-// Define the validation schema using zod
 const signupSchema = z.object({
   firstName: z.string()
   .min(1, "First name is required")
@@ -37,7 +39,14 @@ const Signup: React.FC = () => {
     resolver: zodResolver(signupSchema),
   });
 
-  const navigate = useNavigate();
+  
+  const user = useSelector((state: RootState) => state.auth.user);
+  const navigate = useNavigate()
+  useEffect(()=>{
+    if(user){
+      navigate("/feed")
+    }
+  })
 
   const onSubmit = async (data: SignupFormData) => {
     const response = await registerUser(data);

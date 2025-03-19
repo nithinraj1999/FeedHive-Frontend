@@ -20,7 +20,7 @@ function App() {
       <Route path="/feed" element={    <PrivateRoute><ArticleFeed /></PrivateRoute>} />
       <Route path="/view-article" element={ <PrivateRoute><ViewArticlePage /></PrivateRoute>} />
       <Route path="/my-articles" element={<PrivateRoute><MyArticles /></PrivateRoute>} />
-      <Route path="/select-category" element={<PrivateRoute><CategorySelection/></PrivateRoute>} />
+      <Route path="/select-category" element={<CategorySelection/>} />
     </Routes>
     </>
   );

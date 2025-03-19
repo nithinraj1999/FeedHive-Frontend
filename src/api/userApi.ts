@@ -1,6 +1,7 @@
 import { userInstance } from "./axiosInstance/userAxiosInstance";
+import { UserProfile } from "./interfaces/userInterfaces";
 
-export const editProfile = async (data:any)=>{
+export const editProfile = async (data:UserProfile)=>{
     const response = await userInstance.patch("/edit-profile",data)
     return response.data
 }
@@ -10,7 +11,7 @@ export const getAllCategories = async ()=>{
     return response.data
 }   
 
-export const createArticles = async(data:any)=>{
+export const createArticles = async(data:FormData)=>{
     const response = await userInstance.post("/create-article",data,{
         headers: {
             "Content-Type": "multipart/form-data", 
@@ -21,29 +22,26 @@ export const createArticles = async(data:any)=>{
 
 
 
-export const getAllArticles = async (data:any)=>{
-    console.log(data);
-    
-    console.log(data);
-    
+export const getAllArticles = async (data:{userId:string})=>{
+
     const response = await userInstance.post("/get-all-articles",data)
     return response.data
 }   
 
 
-export const viewArticles = async (data:any)=>{
+export const viewArticles = async (data:{articleId:string})=>{
     const response = await userInstance.post("/view-article",data)
     return response.data
 }   
 
 
-export const getMyArticles = async (data:any)=>{
+export const getMyArticles = async (data:{ userId :string})=>{
     const response = await userInstance.post("/my-articles",data)
     return response.data
 }   
 
 
-export const updateArticle = async (data:any)=>{
+export const updateArticle = async (data:FormData)=>{
     const response = await userInstance.put("/edit-article",data,{
         headers: {
             "Content-Type": "multipart/form-data", 
@@ -53,8 +51,7 @@ export const updateArticle = async (data:any)=>{
 }   
 
 
-export const saveUserCategories = async (data:any)=>{
-    console.log("...",data);
+export const saveUserCategories = async (data:{userId:string | null,categoryId:string[]})=>{
     
     const response = await userInstance.post("/select-category",data)
     return response.data
@@ -62,7 +59,7 @@ export const saveUserCategories = async (data:any)=>{
 
 
 
-export const updateArticleReaction =async (data:any)=>{
+export const updateArticleReaction =async (data:{userId?:string, articleId:string, type:string })=>{
     console.log(data);
     if(data.type =="like"){
         const response = await userInstance.patch("/like-article",data)

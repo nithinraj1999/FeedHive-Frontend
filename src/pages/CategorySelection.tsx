@@ -55,7 +55,6 @@ const CategorySelection = () => {
   const saveCategories = async () => {
     try {
 
-      console.log(selectedCategories);
       const data = {
         userId:query.get("userId"),
         categoryId:selectedCategories

@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { signinUser } from "../api/auth";
 import { setUser } from "../state/slices/authSlice";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RootState } from "../state/store";
 interface SignInFormInputs {
   email: string;
   password: string;
@@ -12,7 +14,13 @@ interface SignInFormInputs {
 
 const SignIn: React.FC = () => {
 
+  const user = useSelector((state: RootState) => state.auth.user);
   const navigate = useNavigate()
+  useEffect(()=>{
+    if(user){
+      navigate("/feed")
+    }
+  })
   const {
     register,
     handleSubmit,
