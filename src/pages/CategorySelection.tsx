@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { getAllCategories, saveUserCategories } from "../api/userApi";
-import { useSelector } from "react-redux";
-import { RootState } from "../state/store";
+
 import { useNavigate } from "react-router-dom";
 // Define the category type
 import { useLocation } from "react-router-dom";
