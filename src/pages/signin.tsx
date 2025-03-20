@@ -7,6 +7,10 @@ import { setUser } from "../state/slices/authSlice";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "../state/store";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
+
 interface SignInFormInputs {
   email: string;
   password: string;
@@ -29,18 +33,27 @@ const SignIn: React.FC = () => {
   const dispatch = useDispatch()
   const onSubmit: SubmitHandler<SignInFormInputs> = async(data) => {
     console.log("Sign In Data:", data);
-
-    const response = await signinUser(data)
-    if(response.success){
-      dispatch(setUser(response.userData))
-      navigate('/feed')
+    try{
+      const response = await signinUser(data)
+      if(response.success){
+        dispatch(setUser(response.userData))
+        navigate('/feed')
+      }
+    }catch(error){      
+      toast.error("Email or password is incorrect", {
+        position: "top-right",
+        autoClose: 3000,
+      });
     }
+    
+    
 
   };
 
   
 
   return (
+    <>
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
       <form
         onSubmit={handleSubmit(onSubmit)}
@@ -92,6 +105,9 @@ const SignIn: React.FC = () => {
         </p>
       </form>
     </div>
+    <ToastContainer />
+    </>
+    
   );
 };
 
