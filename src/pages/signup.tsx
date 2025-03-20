@@ -42,6 +42,7 @@ const Signup: React.FC = () => {
     resolver: zodResolver(signupSchema),
   });
 
+  console.log(watch);
   
   const user = useSelector((state: RootState) => state.auth.user);
   const navigate = useNavigate()

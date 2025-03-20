@@ -5,7 +5,6 @@ import { RootState } from "../state/store";
 import NavBar from "../components/NavBar";
 import { useNavigate } from "react-router-dom";
 import { z } from "zod";
-import { ArticleFormData } from "../api/interfaces/userInterfaces";
 interface Category {
   _id: string;
   categoryName: string;
@@ -105,6 +104,8 @@ const ArticleCreationPage: React.FC = () => {
 
     try {
       const response = await createArticles(data);
+      console.log(response);
+      
       navigate("/feed");
       setArticleName("");
       setDescription("");

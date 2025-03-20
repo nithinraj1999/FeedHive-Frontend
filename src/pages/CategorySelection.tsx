@@ -21,7 +21,6 @@ interface ApiResponse {
 const CategorySelection = () => {
   const [categories, setCategories] = useState<Category[]>([]);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-  const user = useSelector((state: RootState) => state.auth.user);
 
   const useQuery = () => new URLSearchParams(useLocation().search);
   const query = useQuery();

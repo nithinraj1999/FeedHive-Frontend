@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../state/store";
 import { FaUser, FaEnvelope, FaPhone, FaBirthdayCake, FaList, FaEdit, FaSave } from "react-icons/fa";
-import { logout, setUser } from "../state/slices/authSlice";
+import {  setUser } from "../state/slices/authSlice";
 import { editProfile } from "../api/userApi";
 import NavBar from "../components/NavBar";
 import { getAllCategories } from "../api/userApi";
