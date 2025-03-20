@@ -12,6 +12,8 @@ interface User {
   email: string;
   phone: string;
   dob: string; 
+  likedArticle:any;
+  dislikedArticle:any;
   preferences:Category[];
   role: "user" | "admin";
 }

@@ -45,12 +45,7 @@ const SignIn: React.FC = () => {
         autoClose: 3000,
       });
     }
-    
-    
-
   };
-
-  
 
   return (
     <>
