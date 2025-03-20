@@ -10,7 +10,6 @@ import { RootState } from "../state/store";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
-
 interface SignInFormInputs {
   email: string;
   password: string;
