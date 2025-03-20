@@ -50,7 +50,7 @@ const Signup: React.FC = () => {
     if(user){
       navigate("/feed")
     }
-  })
+  },[])
 
   const onSubmit = async (data: SignupFormData) => {
     try{
