@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { FaThumbsUp, FaThumbsDown } from "react-icons/fa";
+import { FaThumbsUp, FaThumbsDown ,FaBan } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { RootState } from "../state/store";
 import { getAllArticles, updateArticleReaction } from "../api/userApi";
@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import { useDispatch } from "react-redux";
 import { setUser } from "../state/slices/authSlice";
+import { blockArticleById } from "../api/userApi";
 
 interface Article {
   _id: string;
@@ -55,8 +56,6 @@ const ArticleFeed: React.FC = () => {
           let newLikes = article.likes;
           let newDislikes = article.dislikes;
           let newReaction: "like" | "dislike" | null = type;
-
-            console.log(user?.likedArticle.includes(articleId));
             
           if(type === "like" && user?.likedArticle.includes(articleId)){
             newLikes -=1
@@ -91,6 +90,18 @@ const ArticleFeed: React.FC = () => {
     }
   };
 
+  const blockArticle = async(articleId:string)=>{
+    if(user?._id){
+      const response = await blockArticleById({userId:user?._id,articleId:articleId})
+      if(response.success){
+        setArticles((prevArticles) =>{
+          return prevArticles.filter((article)=>articleId !== article._id)
+          
+        }) 
+        }
+    //   }
+    }
+  }
   return (
     <>
       <NavBar />
@@ -129,7 +140,7 @@ const ArticleFeed: React.FC = () => {
                 </div>
                 <div className="flex items-center justify-center space-x-4 mt-2 text-gray-600">
                   <button
-                    className={`flex items-center space-x-1 ${article.userReaction === "like" ? "text-blue-500" : "hover:text-blue-500"}`}
+                    className={`flex items-center cursor-pointer space-x-1 ${article.userReaction === "like" ? "text-blue-500" : "hover:text-blue-500"}`}
                     onClick={() => handleReaction(article._id, "like")}
                   >
                     {user?.likedArticle.includes(article._id) ?<FaThumbsUp color="blue"/> :<FaThumbsUp color="grey"/>}
@@ -137,11 +148,17 @@ const ArticleFeed: React.FC = () => {
                     <span>{article.likes}</span>
                   </button>
                   <button
-                    className={`flex items-center space-x-1 ${article.userReaction === "dislike" ? "text-red-500" : "hover:text-red-500"}`}
+                    className={`flex items-center cursor-pointer space-x-1 ${article.userReaction === "dislike" ? "text-red-500" : "hover:text-red-500"}`}
                     onClick={() => handleReaction(article._id, "dislike")}
                   >
                        {user?.dislikedArticle.includes(article._id) ?  <FaThumbsDown color="red" /> : <FaThumbsDown color="grey" />}
                     <span>{article.dislikes}</span>
+                  </button>
+                  <button
+                    className={`flex items-center space-x-1 cursor-pointer`}
+                    onClick={()=>blockArticle(article._id)}
+                  >
+                    <FaBan  /> 
                   </button>
                 </div>
               </div>

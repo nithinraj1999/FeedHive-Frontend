@@ -69,3 +69,11 @@ export const updateArticleReaction =async (data:{userId?:string, articleId:strin
         return response.data
     }
 }
+
+export const blockArticleById = async (data:{userId:string,articleId:string})=>{
+    console.log("block");
+    
+    const response = await userInstance.patch("/block-article",data)
+    return response.data
+}
+
