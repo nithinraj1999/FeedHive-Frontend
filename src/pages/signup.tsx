@@ -63,6 +63,8 @@ const Signup: React.FC = () => {
               position: "top-right",
               autoClose: 3000,
             });
+            console.log(watch);
+            
     }
 
   };
