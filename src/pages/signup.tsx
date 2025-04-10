@@ -54,8 +54,10 @@ const Signup: React.FC = () => {
   const onSubmit = async (data: SignupFormData) => {
     try{
       const response = await registerUser(data);
+      console.log(response);
+      
       if (response.success) {
-        console.log(response.newUserId);
+        console.log("success",response.newUserId);
         navigate(`/select-category?userId=${response.newUserId}`);
       }
     }catch(error){
