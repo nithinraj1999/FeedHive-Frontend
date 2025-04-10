@@ -14,20 +14,20 @@ const NavBar = () => {
       <h1 className="text-xl font-bold">FeedHive</h1>
 
       <div className="space-x-4">
-        <button onClick={() => navigate("/my-articles")} className="px-4 py-2 bg-black rounded-lg ">
+        <button onClick={() => navigate("/my-articles")} className="px-4 py-2 bg-black rounded-lg cursor-pointer ">
           My Articles
         </button>
 
-        <button onClick={() => navigate("/feed")} className="px-4 py-2 bg-black rounded-lg ">
+        <button onClick={() => navigate("/feed")} className="px-4 py-2 bg-black rounded-lg cursor-pointer">
 home
         </button>
-        <button onClick={() => navigate("/create-article")} className="px-4 py-2 bg-black rounded-lg ">
+        <button onClick={() => navigate("/create-article")} className="px-4 py-2 bg-black rounded-lg cursor-pointer">
           create post
         </button>
-        <button onClick={() => navigate("/my-profile")} className="px-4 py-2 bg-black rounded-lg ">
+        <button onClick={() => navigate("/my-profile")} className="px-4 py-2 bg-black rounded-lg cursor-pointer">
           My Profile
         </button>
-        <button onClick={handleLogout} className="px-4 py-2 bg-black rounded-lg ">
+        <button onClick={handleLogout} className="px-4 py-2 bg-black rounded-lg cursor-pointer">
           Logout
         </button>
       </div>
