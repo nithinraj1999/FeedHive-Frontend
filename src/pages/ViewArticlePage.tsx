@@ -156,11 +156,11 @@ const ViewArticlePage = () => {
 
         <div className="flex items-center justify-between mt-6">
           <div className="flex items-center space-x-4 text-gray-600">
-            <button className="flex items-center space-x-1 hover:text-blue-500">
+            <button className="flex items-center space-x-1 hover:text-blue-500 cursor-pointer">
               <FaThumbsUp />
               <span>{article?.likes}</span>
             </button>
-            <button className="flex items-center space-x-1 hover:text-red-500">
+            <button className="flex items-center space-x-1 hover:text-red-500 cursor-pointer">
               <FaThumbsDown />
               <span>{article?.dislikes}</span>
             </button>
