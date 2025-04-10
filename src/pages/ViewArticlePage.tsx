@@ -16,7 +16,7 @@ interface Article {
   dislikes: number;
   category: string;
   blockCount: number;
-  createdAt: string;
+  createdAt: any;
   isBlocked: boolean;
 }
 
@@ -132,7 +132,9 @@ const ViewArticlePage = () => {
         <div className="mt-4 flex justify-between items-center">
           <div>
             <h1 className="text-2xl font-bold text-gray-800">{article?.articleName}</h1>
-            <p className="text-gray-500 text-sm">Published on {article?.createdAt}</p>
+            <p className="text-gray-500 text-sm">
+  Published on {article?.createdAt ? new Date(article.createdAt).toISOString().split('T')[0] : 'N/A'}
+</p>
           </div>
           {article?.userId==user?._id &&
           

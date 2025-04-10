@@ -189,7 +189,7 @@ const Profile = () => {
           <ProfileField 
             icon={<FaBirthdayCake />} 
             label="Date of Birth" 
-            value={user.dob.toString()} 
+            value={new Date(user.dob).toISOString().split('T')[0]} 
             field="dob"
             editableFields={editableFields}
             setEditableFields={setEditableFields}
